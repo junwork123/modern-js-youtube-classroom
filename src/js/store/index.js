@@ -1,5 +1,6 @@
-import reducer from "./reducer.js";
-import {createStore} from "../../../../modern-js-todo-list/src/js/core/createStore.js";
+import reducer from './reducer';
+import { createStore } from '../../../../modern-js-todo-list/src/js/core/createStore';
+
 const store = createStore(reducer);
 
-export { store };
+export default store;
