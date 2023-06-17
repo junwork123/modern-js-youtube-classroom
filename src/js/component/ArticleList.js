@@ -1,6 +1,6 @@
 import Component from '../core/Component';
 
-export default class Sample extends Component {
+export default class ArticleList extends Component {
   initState() { return {}; }
 
   mounted() {
@@ -9,6 +9,7 @@ export default class Sample extends Component {
 
   template() {
     return `
+
         `;
   }
 
