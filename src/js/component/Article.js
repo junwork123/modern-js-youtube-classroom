@@ -1,4 +1,4 @@
-import Component from '../core/Component';
+import Component from '../core/Component.js';
 
 const ArticleButtons = () => `
       <span class="opacity-hover">✅</span>
@@ -6,6 +6,37 @@ const ArticleButtons = () => `
       <span class="opacity-hover">💬</span>
       <span class="opacity-hover">🗑️</span>
     `;
+
+const previewContainer = (src) => `
+    <iframe
+        width="100%"
+        height="118"
+        src=${src}
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+    ></iframe>
+    `;
+
+const contentContainer = (title, channelName, date, src) => `
+    <h3>${title}</h3>
+    <div>
+        <a
+          href=${src}
+          target="_blank"
+          class="channel-name mt-1"
+        >
+        ${channelName}
+    </a>
+    <div class="meta">
+        <p>${date}</p>
+    </div>
+    <div>
+        ${ArticleButtons()}
+    </div>
+    </div>
+    `;
+
 export default class Article extends Component {
   initState() { return {}; }
 
@@ -14,38 +45,20 @@ export default class Article extends Component {
   }
 
   template() {
+    const src = 'https://www.youtube.com/embed/Ngj3498Tm_0';
+    const title = '아두이노 무드등';
+    const channelName = '메이커준';
+    const date = '2021년 3월 2일';
     return `
             <article class="clip">
                 <div class="preview-container">
-                  <iframe
-                    width="100%"
-                    height="118"
-                    src="https://www.youtube.com/embed/Ngj3498Tm_0"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                  ></iframe>
+                    ${previewContainer(src)}
                 </div>
                 <div class="content-container pt-2 px-1">
-                  <h3>아두이노 무드등</h3>
-                  <div>
-                    <a
-                      href="https://www.youtube.com/channel/UC-mOekGSesms0agFntnQang"
-                      target="_blank"
-                      class="channel-name mt-1"
-                    >
-                      메이커준
-                    </a>
-                    <div class="meta">
-                      <p>2021년 3월 2일</p>
-                    </div>
-                    <div>
-                        ${ArticleButtons()}
-                    </div>
-                  </div>
+                    ${contentContainer(title, channelName, date, src)}
                 </div>
           </article>
-        `;
+    `;
   }
 
   setEvent() {

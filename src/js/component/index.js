@@ -1,5 +1,5 @@
-import Header from './Header';
-import ArticleList from './ArticleList';
-import SearchModal from './SearchModal';
+import Header from './Header.js';
+import ArticleList from './ArticleList.js';
+import SearchModal from './SearchModal.js';
 
 export { Header, ArticleList, SearchModal };

@@ -24,5 +24,6 @@ module.exports = {
   rules: {
     'class-methods-use-this': 'off',
     'no-new': 'off',
+    'import/extensions': 'off',
   },
 };

@@ -1,4 +1,4 @@
-import Component from '../core/Component';
+import Component from '../core/Component.js';
 
 export default class Header extends Component {
   initState() { return {}; }
