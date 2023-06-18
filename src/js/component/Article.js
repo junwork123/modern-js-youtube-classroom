@@ -31,34 +31,34 @@ const contentContainer = (title, channelName, date, src) => `
     <div class="meta">
         <p>${date}</p>
     </div>
-    <div>
+    <div class="button-list d-flex justify-end">
         ${ArticleButtons()}
     </div>
     </div>
     `;
 
 export default class Article extends Component {
-  initState() { return {}; }
+  initState() {
+    return {};
+  }
 
   mounted() {
     // 컴포넌트가 마운트된 후에 동작한다.
   }
 
   template() {
-    const src = 'https://www.youtube.com/embed/Ngj3498Tm_0';
-    const title = '아두이노 무드등';
-    const channelName = '메이커준';
-    const date = '2021년 3월 2일';
+    const {
+      src, title, channelName, date,
+    } = this.$props;
+
     return `
-            <article class="clip">
-                <div class="preview-container">
-                    ${previewContainer(src)}
-                </div>
-                <div class="content-container pt-2 px-1">
-                    ${contentContainer(title, channelName, date, src)}
-                </div>
-          </article>
-    `;
+        <div class="preview-container">
+            ${previewContainer(src)}
+        </div>
+        <div class="content-container pt-2 px-1">
+            ${contentContainer(title, channelName, date, src)}
+        </div>
+        `;
   }
 
   setEvent() {
