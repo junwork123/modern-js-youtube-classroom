@@ -26,7 +26,7 @@ export default class Header extends Component {
             <nav class="d-flex justify-center">
               <button class="btn mx-1 article-filter" data-filter="${FILTER_TYPE.ALL}">👁️ 전체 영상</button>
               <button class="btn mx-1 article-filter" data-filter="${FILTER_TYPE.ACTIVE}">📎 볼 영상</button>
-              <button class="btn mx-1 article-filter" data-filter="${FILTER_TYPE.COMPLETED}">✅ 본 영상</button>
+              <button class="btn mx-1 article-filter" data-filter="${FILTER_TYPE.WATCHED}">✅ 본 영상</button>
               <button class="btn mx-1 article-filter" data-filter="${FILTER_TYPE.LIKED}">👍🏻 좋아요 한 영상</button>
               <button class="btn mx-1" id="search-button">🔍 동영상 검색</button>
             </nav>
