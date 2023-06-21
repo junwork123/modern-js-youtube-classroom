@@ -1,4 +1,4 @@
-import { observable } from './observer';
+import { observable } from './observer.js';
 
 const createStore = (reducer) => {
   // 스토어를 생성한다.

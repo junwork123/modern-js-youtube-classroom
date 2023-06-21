@@ -1,4 +1,4 @@
-import { observable, observe } from './observer';
+import { observable, observe } from './observer.js';
 
 export default class Component {
   $target; // 컴포넌트가 마운트되거나 렌더링되는 DOM 엘리먼트를 말한다. (= 컴포넌트 UI의 컨테이너)

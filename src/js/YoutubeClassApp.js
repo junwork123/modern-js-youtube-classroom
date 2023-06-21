@@ -1,9 +1,9 @@
-import { $ } from './utils/selector';
+import { $ } from './utils/selector.js';
 import {
   Header,
   ArticleList,
   SearchModal,
-} from './component/index';
+} from './component/index.js';
 
 export default class YoutubeClassApp {
   constructor($target) {
