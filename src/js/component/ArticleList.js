@@ -1,5 +1,6 @@
 import Component from '../core/Component.js';
 import {
+    deleteArticle,
     getArticlesWithFilter,
     updateLikedStatus,
     updateWatchedStatus,
@@ -16,7 +17,9 @@ const statusButtons = (status) => {
       <span class="opacity-hover delete-button">🗑️</span>
     `;
 }
-
+const getClosestArticleId = (target) => {
+    return target.closest('.clip').id;
+}
 const previewContainer = (src) => `
     <iframe
         width="100%"
@@ -58,13 +61,6 @@ function articleTemplate(article) {
 }
 
 export default class ArticleList extends Component {
-    initState() {
-        return {};
-    }
-
-    mounted() {
-        // 컴포넌트가 마운트된 후에 동작한다.
-    }
 
     template() {
         const articles = getArticlesWithFilter();
@@ -83,7 +79,7 @@ export default class ArticleList extends Component {
     clickCompleteButton() {
         this.addEvent('click', '.complete-button', (event) => {
             const target = event.target;
-            const id = target.closest('.clip').id;
+            const id = getClosestArticleId(target);
             if (target.dataset.watched === WATCHED_STATUS.NOT_YET) {
                 updateWatchedStatus(id, WATCHED_STATUS.WATCHED);
                 target.classList.remove('opacity-hover')
@@ -98,7 +94,7 @@ export default class ArticleList extends Component {
     clickLikeButton() {
         this.addEvent('click', '.like-button', (event) => {
             const target = event.target;
-            const id = target.closest('.clip').id;
+            const id = getClosestArticleId(target);
             if (target.dataset.liked === LIKED_STATUS.NOT_YET) {
                 updateLikedStatus(id, LIKED_STATUS.LIKED);
                 target.classList.remove('opacity-hover')
@@ -112,6 +108,10 @@ export default class ArticleList extends Component {
     }
 
     clickDeleteButton() {
-
+        this.addEvent('click', '.delete-button', (event) => {
+            const target = event.target;
+            const id = getClosestArticleId(target);
+            if(confirm('정말 삭제하시겠습니까?')){ deleteArticle(id); }
+        });
     }
 }
