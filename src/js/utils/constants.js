@@ -18,7 +18,7 @@ const LIKED_STATUS = Object.freeze({
 });
 
 export {
-  FILTER_TYPE,
-  WATCHED_STATUS,
-  LIKED_STATUS,
+    FILTER_TYPE,
+    WATCHED_STATUS,
+    LIKED_STATUS,
 };
