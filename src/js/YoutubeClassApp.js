@@ -5,7 +5,7 @@ import {
 } from './component/index.js';
 import {
   COMPONENT_SELECTOR,
-  MODAL_SELECTOR
+  MODAL_SELECTOR,
 } from './utils/selector.js';
 
 export default class YoutubeClassApp {

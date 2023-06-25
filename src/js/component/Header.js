@@ -1,21 +1,21 @@
 import Component from '../core/Component.js';
-import {FILTER_TYPE} from "../utils/constants.js";
-import {changeFilter} from "../store/filter/creator.js";
+import { FILTER_TYPE } from '../utils/constants.js';
+import { changeFilter } from '../store/filter/creator.js';
 
 import {
-    $$,
-    MODAL_SELECTOR
-} from "../utils/selector.js";
+  $$,
+  MODAL_SELECTOR,
+} from '../utils/selector.js';
 
 const changeButtonAsPressed = (target) => {
-    const buttons = $$('.article-filter');
-    buttons.forEach(button => {
-        button.classList.remove('active');
-        button.classList.remove('bg-cyan-100');
-    });
-    target.classList.add('active');
-    target.classList.add('bg-cyan-100');
-}
+  const buttons = $$('.article-filter');
+  buttons.forEach((button) => {
+    button.classList.remove('active');
+    button.classList.remove('bg-cyan-100');
+  });
+  target.classList.add('active');
+  target.classList.add('bg-cyan-100');
+};
 
 export default class Header extends Component {
   initState() { return {}; }
@@ -45,8 +45,8 @@ export default class Header extends Component {
 
   onChangeFilter() {
     this.addEvent('click', '.article-filter', (event) => {
-      const target = event.target;
-      const filter = target.dataset.filter;
+      const { target } = event;
+      const { filter } = target.dataset;
       changeFilter(filter);
       changeButtonAsPressed(event.target);
     });
@@ -54,7 +54,7 @@ export default class Header extends Component {
 
   onClickSearchButton() {
     this.addEvent('click', '#search-button', () => {
-        MODAL_SELECTOR.SEARCH.classList.add('open');
+      MODAL_SELECTOR.SEARCH.classList.add('open');
     });
   }
 }
