@@ -1,7 +1,9 @@
-import store from '../index.js';
+import { store } from '../index.js';
 import {
   CREATE_ARTICLE,
-  DELETE_ARTICLE, UPDATE_LIKED_STATUS, UPDATE_WATCHED_STATUS,
+  DELETE_ARTICLE,
+  UPDATE_LIKED_STATUS,
+  UPDATE_WATCHED_STATUS,
 } from './actions.js';
 import {
   FILTER_TYPE, LIKED_STATUS, WATCHED_STATUS,
@@ -44,6 +46,7 @@ const updateLikedStatus = (id, isLiked) => {
     },
   });
 };
+
 const getArticlesWithFilter = () => {
   const { articles, filter } = store.getState();
   if (filter === FILTER_TYPE.ALL) { return articles; }

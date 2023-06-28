@@ -1,13 +1,13 @@
 import { observable } from './observer.js';
 
-const createStore = (reducer) => {
+const createStore = (reducer, storeName = 'state') => {
   // 스토어를 생성한다.
   // 스토어는 상태를 관리하고, 상태를 변경하는 기능을 가진다.
 
   // reducer 가 실행될 때
   // 반환하는 객체 State 를 Observable 로 만든다.
   const initialState = reducer();
-  const storedState = JSON.parse(localStorage.getItem('state'));
+  const storedState = JSON.parse(localStorage.getItem(storeName));
   const state = observable(storedState || initialState);
 
   const dispatch = (action) => {
@@ -20,7 +20,7 @@ const createStore = (reducer) => {
       if (state[key]) { state[key] = value; }
     });
     // 변경된 state를 localStorage에 저장한다.
-    localStorage.setItem('state', JSON.stringify(state));
+    localStorage.setItem(storeName, JSON.stringify(state));
   };
 
   // state 를 변경할 수 없도록 한 frozenState 를 만든다.

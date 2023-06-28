@@ -4,10 +4,14 @@ import {
   $,
   MODAL_SELECTOR,
 } from '../utils/selector.js';
+import {
+  getRecentKeywords, getSearchResults,
+  saveRecentKeywords, updateSearchResults,
+} from '../store/searchModal/creator.js';
 
 const recentKeywordsTemplate = (keywords) => `
     <span class="text-gray-700">최근 검색어: </span>
-    ${keywords.map((keyword) => `<span class="chip m-1">${keyword}</span>`).join('')}
+    ${keywords && keywords.map((keyword) => `<span class="chip m-1">${keyword}</span>`).join('')}
   `;
 
 const savedVideoCountTemplate = (count) => `
@@ -56,12 +60,7 @@ const articleTemplate = (article) => {
 };
 
 export default class SearchModal extends Component {
-  initState() {
-    return {
-      recentKeywords: [],
-      searchResults: [],
-    };
-  }
+  initState() { return {}; }
 
   mounted() {
     // 컴포넌트가 마운트된 후에 동작한다.
@@ -69,8 +68,8 @@ export default class SearchModal extends Component {
 
   template() {
     // const { recentKeywords } = this.state;
-    const { searchResults } = this.$state;
-    const recentKeywords = ['노마드코더', '프론트엔드', '백엔드', '풀스택', '자바스크립트'];
+    const searchResults = getSearchResults();
+    const recentKeywords = getRecentKeywords();
     const savedVideoCount = 10;
     return `
         <div class="modal-inner p-8">
@@ -125,12 +124,16 @@ export default class SearchModal extends Component {
         date: item.snippet.publishedAt,
         src: `https://www.youtube.com/embed/${item.id.videoId}`,
       }));
-      this.setState({ searchResults });
+      updateSearchResults(searchResults);
+      saveRecentKeywords(keyword);
     });
   }
 
-  setState(param) {
-    this.$state = { ...this.$state, ...param };
-    this.render();
+  onEnterSearchInput() {
+    this.addEvent('keyup', '.search-input', (event) => {
+      if (event.key === 'Enter') {
+        this.search();
+      }
+    });
   }
 }

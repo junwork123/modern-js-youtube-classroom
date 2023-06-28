@@ -1,10 +1,15 @@
-import { FILTER_TYPE, LIKED_STATUS, WATCHED_STATUS } from '../utils/constants.js';
+import {
+  FILTER_TYPE,
+  LIKED_STATUS,
+  WATCHED_STATUS,
+} from '../utils/constants.js';
 import {
   CHANGE_FILTER,
 } from './filter/actions.js';
 import {
   CREATE_ARTICLE,
-  DELETE_ARTICLE, UPDATE_LIKED_STATUS,
+  DELETE_ARTICLE,
+  UPDATE_LIKED_STATUS,
   UPDATE_WATCHED_STATUS,
 } from './article/actions.js';
 
