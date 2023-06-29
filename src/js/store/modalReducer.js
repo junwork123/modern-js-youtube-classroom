@@ -4,6 +4,7 @@ import {
 } from './searchModal/actions.js';
 
 const initialState = {
+  currentKeyword: '',
   recentKeywords: [],
   searchResults: [],
 };
@@ -17,7 +18,8 @@ const modalReducer = (state = initialState, action = {}) => {
     case SAVE_RECENT_KEYWORDS:
       return {
         ...state,
-        recentKeywords: [...state.recentKeywords, action.payload.keyword],
+        // 5개까지만 저장되도록 함
+        recentKeywords: [action.payload.keyword, ...state.recentKeywords.slice(0, 4)],
       };
     case UPDATE_SEARCH_RESULTS:
       return {

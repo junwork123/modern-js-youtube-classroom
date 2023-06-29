@@ -1,12 +1,11 @@
 import Component from '../core/Component.js';
 import { searchVideo } from '../utils/youtubeApi.js';
+import { $, MODAL_SELECTOR } from '../utils/selector.js';
 import {
-  $,
-  MODAL_SELECTOR,
-} from '../utils/selector.js';
-import {
-  getRecentKeywords, getSearchResults,
-  saveRecentKeywords, updateSearchResults,
+  getRecentKeywords,
+  getSearchResults,
+  saveRecentKeywords,
+  updateSearchResults,
 } from '../store/searchModal/creator.js';
 
 const recentKeywordsTemplate = (keywords) => `
@@ -60,7 +59,9 @@ const articleTemplate = (article) => {
 };
 
 export default class SearchModal extends Component {
-  initState() { return {}; }
+  initState() {
+    return {};
+  }
 
   mounted() {
     // 컴포넌트가 마운트된 후에 동작한다.
@@ -130,8 +131,9 @@ export default class SearchModal extends Component {
   }
 
   onEnterSearchInput() {
-    this.addEvent('keyup', '.search-input', (event) => {
+    this.addEvent('keydown', '.search-input', (event) => {
       if (event.key === 'Enter') {
+        event.preventDefault(); // keydown에 의해 발생한 이벤트를 막는다.
         this.search();
       }
     });

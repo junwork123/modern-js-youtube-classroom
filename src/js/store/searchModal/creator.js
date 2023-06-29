@@ -6,7 +6,12 @@ import { modalStore } from '../index.js';
 
 const getRecentKeywords = () => {
   const { recentKeywords } = modalStore.getState();
-  return recentKeywords;
+  return recentKeywords.slice(0, 5);
+};
+
+const getCurrentKeyword = () => {
+  const { currentKeyword } = modalStore.getState();
+  return currentKeyword;
 };
 
 const saveRecentKeywords = (keyword) => {
@@ -37,4 +42,5 @@ export {
   saveRecentKeywords,
   updateSearchResults,
   getSearchResults,
+  getCurrentKeyword,
 };
