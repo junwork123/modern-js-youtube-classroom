@@ -1,7 +1,6 @@
 .modal {
   opacity: 0;
   visibility: hidden;
-  display: flex;
   position: fixed;
   top: 0;
   right: 0;
@@ -10,6 +9,9 @@
   background: rgba(0, 0, 0, 0.5);
   transition: opacity 0.25s ease;
   z-index: 2;
+  text-align: left;
+  overflow: auto;
+  white-space: nowrap;
 }
 
 .modal.open {

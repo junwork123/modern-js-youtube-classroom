@@ -1,17 +1,21 @@
 import Component from '../core/Component.js';
-import {FILTER_TYPE} from "../utils/constants.js";
-import {changeFilter} from "../store/filter/creator.js";
-import {$$} from "../utils/selector.js";
+import { FILTER_TYPE } from '../utils/constants.js';
+import { changeFilter } from '../store/filter/creator.js';
+
+import {
+  $$,
+  MODAL_SELECTOR,
+} from '../utils/selector.js';
 
 const changeButtonAsPressed = (target) => {
-    const buttons = $$('.article-filter');
-    buttons.forEach(button => {
-        button.classList.remove('active');
-        button.classList.remove('bg-cyan-100');
-    });
-    target.classList.add('active');
-    target.classList.add('bg-cyan-100');
-}
+  const buttons = $$('.article-filter');
+  buttons.forEach((button) => {
+    button.classList.remove('active');
+    button.classList.remove('bg-cyan-100');
+  });
+  target.classList.add('active');
+  target.classList.add('bg-cyan-100');
+};
 
 export default class Header extends Component {
   initState() { return {}; }
@@ -28,7 +32,7 @@ export default class Header extends Component {
               <button class="btn mx-1 article-filter" data-filter="${FILTER_TYPE.ACTIVE}">📎 볼 영상</button>
               <button class="btn mx-1 article-filter" data-filter="${FILTER_TYPE.WATCHED}">✅ 본 영상</button>
               <button class="btn mx-1 article-filter" data-filter="${FILTER_TYPE.LIKED}">👍🏻 좋아요 한 영상</button>
-              <button class="btn mx-1" id="search-button">🔍 동영상 검색</button>
+              <button class="btn mx-1 rounded-full" id="search-button">🔍 동영상 검색</button>
             </nav>
         `;
   }
@@ -36,12 +40,13 @@ export default class Header extends Component {
   setEvent() {
     this.onClickSearchButton();
     this.onChangeFilter();
+    this.onClickSearchButton();
   }
 
   onChangeFilter() {
     this.addEvent('click', '.article-filter', (event) => {
-      const target = event.target;
-      const filter = target.dataset.filter;
+      const { target } = event;
+      const { filter } = target.dataset;
       changeFilter(filter);
       changeButtonAsPressed(event.target);
     });
@@ -49,6 +54,7 @@ export default class Header extends Component {
 
   onClickSearchButton() {
     this.addEvent('click', '#search-button', () => {
+      MODAL_SELECTOR.SEARCH.classList.add('open');
     });
   }
 }
