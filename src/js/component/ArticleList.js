@@ -32,7 +32,7 @@ const previewContainer = (src) => `
 
 const articleTemplate = (article) => {
   const {
-    id, title, channelName, date, src, status, liked,
+    id, title, channelName, date, src, status,
   } = article;
 
   return `
@@ -53,7 +53,7 @@ const articleTemplate = (article) => {
                     <p>${date}</p>
                 </div>
                 <div class="button-list d-flex justify-end">
-                    ${statusButtons(status, liked)}
+                    ${statusButtons(status)}
                 </div>
             </div>
           </div>

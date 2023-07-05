@@ -7,18 +7,19 @@ import {
   saveRecentKeywords,
   updateSearchResults,
 } from '../store/searchModal/creator.js';
+import {
+  getAllArticles,
+  saveArticle,
+} from '../store/article/creator.js';
+import {
+  LIKED_STATUS,
+  WATCHED_STATUS,
+} from '../utils/constants.js';
 
 const recentKeywordsTemplate = (keywords) => `
     <span class="text-gray-700">최근 검색어: </span>
     ${keywords && keywords.map((keyword) => `<span class="chip m-1">${keyword}</span>`).join('')}
   `;
-
-const savedVideoCountTemplate = (count) => `
-        <div class="d-flex justify-end text-gray-700">
-                  저장된 영상 갯수: <span id="saved-video-count">${count}</span>
-        </div>
-    `;
-
 const previewContainer = (src) => `
     <iframe
         width="100%"
@@ -30,29 +31,38 @@ const previewContainer = (src) => `
     ></iframe>
     `;
 
-const articleTemplate = (article) => {
+const articleTemplate = (article, savedVideoList) => {
   const {
     id, title, channelName, date, src,
   } = article;
 
+  const isSaved = savedVideoList.some((video) => video.id === id);
+
   return `
-        <article class="clip js-video relative mt-5" id=${id}>
+        <article class="clip js-video relative mt-5" 
+            id=${id} 
+            data-id=${id} 
+            data-src=${src} 
+            data-title=${title} 
+            data-channelName=${channelName} 
+            data-date=${date}>
           <div class="preview-container">
               ${previewContainer(src)}
           </div>
           <div class="content-container pt-2 px-1">
-  
-          <h3>${title}</h3>
+            <h3>${title}</h3>
             <div>
-                <a href=${src}
-                    target="_blank"
-                    class="channel-name mt-1">
+                <a href=${src} class="channel-name mt-1" target="_blank">
                     ${channelName}
                 </a>
                 <div class="meta">
                     <p>${date}</p>
                 </div>
             </div>
+          </div>
+          <div class="d-flex justify-end">
+            ${isSaved ? '<button class="btn js-save-cancel-button">🗑️ 저장 취소</button>'
+    : '<button class="btn js-save-button">💾 저장</button>'}
           </div>
         </article>
   `;
@@ -68,10 +78,9 @@ export default class SearchModal extends Component {
   }
 
   template() {
-    // const { recentKeywords } = this.state;
+    const savedVideoList = getAllArticles();
     const searchResults = getSearchResults();
     const recentKeywords = getRecentKeywords();
-    const savedVideoCount = 10;
     return `
         <div class="modal-inner p-8">
           <button class="modal-close">
@@ -88,10 +97,14 @@ export default class SearchModal extends Component {
           </form>
           <section class="mt-2">
             ${recentKeywordsTemplate(recentKeywords)}
-            ${savedVideoCountTemplate(savedVideoCount)}
           </section>
-          <section class="video-wrapper">
-            ${searchResults && searchResults.map((article) => articleTemplate(article)).join('')}
+          <section>
+            <div class="d-flex justify-end text-gray-700">
+              저장된 영상 갯수: <span id="saved-video-count">${savedVideoList.length}</span>
+            </div>
+            <section class="video-wrapper">
+                ${searchResults && searchResults.map((article) => articleTemplate(article, savedVideoList)).join('')}
+            </section>
           </section>
         </div>
        `;
@@ -99,6 +112,7 @@ export default class SearchModal extends Component {
 
   setEvent() {
     this.onClickCloseButton();
+    this.onClickSaveButton();
     this.onClickSearchButton();
     this.onEnterSearchInput();
   }
@@ -136,6 +150,21 @@ export default class SearchModal extends Component {
         event.preventDefault(); // keydown에 의해 발생한 이벤트를 막는다.
         this.search();
       }
+    });
+  }
+
+  onClickSaveButton() {
+    this.addEvent('click', '.js-save-button', (event) => {
+      const target = event.target.closest('.clip');
+      const {
+        id, title, channelName, date, src,
+      } = target.dataset;
+      const isWatched = WATCHED_STATUS.NOT_YET;
+      const isLiked = LIKED_STATUS.NOT_YET;
+      const status = { isWatched, isLiked };
+      saveArticle({
+        id, title, channelName, date, src, status,
+      });
     });
   }
 }

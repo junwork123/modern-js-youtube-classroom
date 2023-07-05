@@ -1,6 +1,6 @@
 import { store } from '../index.js';
 import {
-  CREATE_ARTICLE,
+  SAVE_ARTICLE,
   DELETE_ARTICLE,
   UPDATE_LIKED_STATUS,
   UPDATE_WATCHED_STATUS,
@@ -9,9 +9,9 @@ import {
   FILTER_TYPE, LIKED_STATUS, WATCHED_STATUS,
 } from '../../utils/constants.js';
 
-const createArticle = (article) => {
+const saveArticle = (article) => {
   store.dispatch({
-    type: CREATE_ARTICLE,
+    type: SAVE_ARTICLE,
     payload: {
       article,
     },
@@ -47,6 +47,11 @@ const updateLikedStatus = (id, isLiked) => {
   });
 };
 
+const getAllArticles = () => {
+  const { articles } = store.getState();
+  return articles;
+};
+
 const getArticlesWithFilter = () => {
   const { articles, filter } = store.getState();
   if (filter === FILTER_TYPE.ALL) { return articles; }
@@ -65,9 +70,10 @@ const getArticlesWithFilter = () => {
 };
 
 export {
-  createArticle,
+  saveArticle,
   deleteArticle,
   updateWatchedStatus,
   updateLikedStatus,
   getArticlesWithFilter,
+  getAllArticles,
 };

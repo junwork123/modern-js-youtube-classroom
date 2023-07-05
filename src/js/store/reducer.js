@@ -7,7 +7,7 @@ import {
   CHANGE_FILTER,
 } from './filter/actions.js';
 import {
-  CREATE_ARTICLE,
+  SAVE_ARTICLE,
   DELETE_ARTICLE,
   UPDATE_LIKED_STATUS,
   UPDATE_WATCHED_STATUS,
@@ -85,7 +85,7 @@ const initialState = {
 };
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case CREATE_ARTICLE:
+    case SAVE_ARTICLE:
       return {
         ...state,
         articles: [...state.articles, action.payload.article],
